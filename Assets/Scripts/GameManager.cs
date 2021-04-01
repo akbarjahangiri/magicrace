@@ -1,82 +1,33 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    public UnityEvent endGame;
-    public List<GameObject> enemyCars;
-    public GameObject playerCar;
-    private int _gameScore;
-    private float _roadLenght;
-    private readonly Vector3 _firstRoadPos = new Vector3(0, 0, 0);
-    private readonly Vector3 _secondRoadPos = new Vector3(0, 0, 30);
+    public static event Action restartGame;
     public bool isGameActive = true;
-    public List<GameObject> roads = new List<GameObject>(2);
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI gameOverText;
-    public Button restartButton;
-    public GameObject titleScreen;
-    public GameObject[] cars;
+
+    //spawn scene objects properties
+    public GameObject playerCar;
     public readonly float[] _carXPosition = {-0.3f, 0.3f};
     public readonly float _carYPosition = 0f;
-    public readonly float _carZPosition = 12f;
-
     public readonly float[] _starXPosition = {-0.3f, 0.3f};
     public readonly float _starYPosition = 0.14f;
-    public readonly float _starZposition = 8f;
-
-    private PlayerManager _playerManager;
-    private HudController _hudController;
     private ObjectSpawner _objectSpawner;
 
-    private Boolean flag = true;
-
-    private static GameManager _instance;
-    private int count = 1;
-
-    [SerializeField] private AudioClip clickSound;
+    //loading scene 
     private AsyncOperation _operation;
+    [SerializeField] private AudioClip clickSound;
     private AudioSource _audioSource;
-
-    public GameObject loadingScreen;
-
+    [SerializeField] private GameObject loadingScreen;
     public Slider slider;
 
-    public static GameManager Instance
-    {
-        get { return _instance; }
-    }
-
-    public static event Action restartGame;
-
-    private void Awake()
-    {
-        // _playerManager = FindObjectOfType<PlayerManager>();
-        // _hudController = FindObjectOfType<HudController>();
-        // _objectSpawner = FindObjectOfType<ObjectSpawner>();
-        // if (_instance != null && _instance != this)
-        // {
-        //     Destroy(this.gameObject);
-        // }
-        // else
-        // {
-        //     _instance = this;
-        // }
-
-        //
-    }
 
     private void OnEnable()
     {
-        _playerManager = FindObjectOfType<PlayerManager>();
-        _hudController = FindObjectOfType<HudController>();
         _objectSpawner = FindObjectOfType<ObjectSpawner>();
         PlayerManager.crashCar += StopGame;
         HudController.resumeAfterCrash += ResumeGameCrash;
@@ -88,16 +39,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _objectSpawner.InitialSpawnRoad();
         _audioSource = GetComponent<AudioSource>();
 
-        // PlayerManager.crashCar += StopGame;
-        // SpawnPlayer();
-        // SpawnRoads(roads);
-        // Invoke("SpawnCar", 2);
-        // Invoke("SpawnStars", 4);
-        StartCoroutine(x());
-        // StartCoroutine(SpawnEnemyCar());
+        _objectSpawner.InitialSpawnRoad();
+        StartCoroutine(SpawnCars());
         StartCoroutine(SpawnStar());
     }
 
@@ -120,26 +65,18 @@ public class GameManager : MonoBehaviour
         HudController.resumeAfterCrash -= SpawnCar;
         HudController.resumeAfterCrash -= SpawnStars;
         restartGame?.Invoke();
-        // restartGame = null;
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         LoadGame();
-
-        // SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
-    // IEnumerator LoadScene
     public void StopGame()
     {
         isGameActive = false;
         StopAllCoroutines();
-        // CancelInvoke();
     }
 
     public void ResumeGameCrash()
     {
         isGameActive = true;
-        // StartCoroutine(SpawnEnemyCar());
-        // StartCoroutine(SpawnStar());
     }
 
     #region PlayerCar
@@ -156,12 +93,6 @@ public class GameManager : MonoBehaviour
     private void SpawnStars()
     {
         StartCoroutine(SpawnStar());
-        // if (isGameActive)
-        // {
-        //     _objectSpawner.SpawnStar();
-        //     var randomTime = Random.Range(1, 5);
-        //     Invoke("SpawnStars", randomTime);
-        // }
     }
 
     private IEnumerator SpawnStar()
@@ -178,37 +109,16 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region EnemyCar
+    #region Car
 
+    //this function made because cant use IEnumerator in event
     private void SpawnCar()
     {
-        StartCoroutine(SpawnEnemyCar());
-        // if (isGameActive)
-        // {
-        //     _objectSpawner.SpawnCar();
-        //     var randomTime = Random.Range(1, 5);
-        //     Invoke("SpawnCar", randomTime);
-        // }
+        StartCoroutine(SpawnCars());
     }
 
-    private IEnumerator SpawnEnemyCar()
+    private IEnumerator SpawnCars()
     {
-        count++;
-
-        while (isGameActive)
-        {
-            yield return new WaitForSeconds(Random.Range(2f, 3.5f));
-            if (isGameActive)
-            {
-                _objectSpawner.SpawnCar();
-            }
-        }
-    }
-
-    private IEnumerator x()
-    {
-
-
         while (isGameActive)
         {
             yield return new WaitForSeconds(Random.Range(2f, 3.5f));
@@ -235,7 +145,6 @@ public class GameManager : MonoBehaviour
         {
             float progress = Mathf.Clamp01(_operation.progress / 0.9f);
             slider.value = progress;
-            // loaderText.text = (int)(progress * 100) + "%";
             yield return null;
         }
     }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerData
 {
     public int score;
-    // public int carName;
 
     public PlayerData(HudController hudController)
     {

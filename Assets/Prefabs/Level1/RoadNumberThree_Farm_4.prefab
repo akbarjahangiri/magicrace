@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 6869632012673270144}
   - component: {fileID: 8190905276707820671}
   - component: {fileID: 8830605115676929521}
-  - component: {fileID: 7408520395982756536}
   m_Layer: 0
   m_Name: RoadNumberThree_Farm_4
   m_TagString: ground
@@ -192,19 +191,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 0, z: 12.010445}
   m_Center: {x: 0, y: 0, z: 5.0058737}
---- !u!114 &7408520395982756536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761980408848956228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55aa3cf0aef42f428592f1a41d9ff0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
 --- !u!1 &2741695628757543105
 GameObject:
   m_ObjectHideFlags: 0
@@ -11763,15 +11749,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83f4f62434243a4e8c9591deba6167b, type: 3}
---- !u!1 &1302680873282513078 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c83f4f62434243a4e8c9591deba6167b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2221792542959998439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1828424025202979340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c83f4f62434243a4e8c9591deba6167b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2221792542959998439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1302680873282513078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c83f4f62434243a4e8c9591deba6167b,
     type: 3}
   m_PrefabInstance: {fileID: 2221792542959998439}
   m_PrefabAsset: {fileID: 0}

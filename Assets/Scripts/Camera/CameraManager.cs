@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
-using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
 {
@@ -20,7 +16,6 @@ public class CameraManager : MonoBehaviour
     private void OnEnable()
     {
         _playerManager = FindObjectOfType<PlayerManager>();
-
         PlayerManager.crashCar += ShakeCamera;
     }
 
@@ -40,11 +35,6 @@ public class CameraManager : MonoBehaviour
     private void ShakeCamera()
     {
         transform.DOShakePosition(1f, new Vector3(0.5f, 0.5f, 0.5f));
-    }
-
-    private void FollowPlayer()
-    {
-        transform.position = _player.transform.position + new Vector3(0, 6f, 2f);
     }
     
 }

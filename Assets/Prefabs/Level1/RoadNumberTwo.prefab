@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: -3815921788398786603}
   - component: {fileID: 4303850169857706756}
   - component: {fileID: 4624197613022895707}
-  - component: {fileID: 6661023574005000466}
   m_Layer: 0
   m_Name: RoadNumberTwo
   m_TagString: ground
@@ -329,8 +328,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  objectDistance: -40
-  despawnDistance: -100
+  explodeFire: {fileID: 0}
+  _egzozSmoke: {fileID: 0}
+  isCrashed: 0
 --- !u!65 &4624197613022895707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -344,19 +344,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 0, z: 12.010445}
   m_Center: {x: 0, y: 0, z: 5.0058737}
---- !u!114 &6661023574005000466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2509385094636521710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55aa3cf0aef42f428592f1a41d9ff0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
 --- !u!1 &6850773175147182186
 GameObject:
   m_ObjectHideFlags: 0

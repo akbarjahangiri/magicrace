@@ -6,11 +6,8 @@ using Object = System.Object;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    private bool _spawningObject = false;
     [SerializeField] private float GroundSpawnDistance = 96f;
-    private float carSpawnDistance = 10f;
     private ObjectPooler _objectPooler;
-    // private static ObjectSpawner _instance;
     private GameManager _gameManager;
     
     [SerializeField] private GameObject _player;
