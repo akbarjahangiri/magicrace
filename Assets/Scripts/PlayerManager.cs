@@ -27,6 +27,8 @@ public class PlayerManager : MonoBehaviour
     public AudioClip crashSound;
     private HudController _hudController;
     private AudioSource _audioSource;
+    [SerializeField] private AudioClip turnSound;
+    [SerializeField] private AudioClip hitStar;
 
     private void OnEnable()
     {
@@ -92,6 +94,7 @@ public class PlayerManager : MonoBehaviour
         transform.DOScale(_playerReScale, 0.4f);
         transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.4f);
         myTween.WaitForCompletion();
+        _audioSource.PlayOneShot(turnSound);
     }
 
     void GoRightTweens()
@@ -100,41 +103,39 @@ public class PlayerManager : MonoBehaviour
         transform.DOScale(_playerReScale, 0.4f);
         transform.DOScale(new Vector3(0.3f, 0.3f, 0.3f), 0.4f);
         myTween.WaitForCompletion();
+        _audioSource.PlayOneShot(turnSound);
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("star"))
-        {
-            HitStar?.Invoke();
-            other.gameObject.SetActive(false);
-            starParticle.Play();
-            SaveManager.instance.activeSave.starRecord++;
-        }
+        if (!other.gameObject.CompareTag("star")) return;
+        _audioSource.PlayOneShot(hitStar);
+        HitStar?.Invoke();
+        other.gameObject.SetActive(false);
+        starParticle.Play();
+        SaveManager.instance.activeSave.starRecord++;
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("car"))
+        if (!other.gameObject.CompareTag("car")) return;
+        explodeFire.Play();
+        other.gameObject.SetActive(false);
+        StopMove();
+        _audioSource.PlayOneShot(crashSound, 1.0f);
+        StopSmokeParticles();
+        if (SaveManager.instance.hasLoaded)
         {
-            explodeFire.Play();
-            other.gameObject.SetActive(false);
-            StopMove();
-            _audioSource.PlayOneShot(crashSound, 1.0f);
-            StopSmokeParticles();
-            if (SaveManager.instance.hasLoaded)
+            if (_distance > SaveManager.instance.activeSave.distanceRecord)
             {
-                if (_distance > SaveManager.instance.activeSave.distanceRecord)
-                {
-                    SaveManager.instance.activeSave.distanceRecord = _distance;
-                }
-
-                SaveManager.instance.Save();
+                SaveManager.instance.activeSave.distanceRecord = _distance;
             }
 
-            crashCar?.Invoke();
+            SaveManager.instance.Save();
         }
+
+        crashCar?.Invoke();
     }
 
     private void StopSmokeParticles()

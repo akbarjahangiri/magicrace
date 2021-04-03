@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
     {
         while (isGameActive)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 3.5f));
+            yield return new WaitForSeconds(Random.Range(1f, 3.5f));
             if (isGameActive)
             {
                 _objectSpawner.SpawnCar();
