@@ -293,8 +293,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.3116546, z: 3.014149}
-  m_Center: {x: 0, y: 0.6380663, z: -0.017640889}
+  m_Size: {x: 1, y: 1.4755375, z: 3.014149}
+  m_Center: {x: 0, y: 0.5561248, z: -0.017640889}
 --- !u!54 &6446762926892508458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -304,12 +304,12 @@ Rigidbody:
   m_GameObject: {fileID: 6201366169881340341}
   serializedVersion: 2
   m_Mass: 200
-  m_Drag: 2.65
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 54
   m_CollisionDetection: 0
 --- !u!114 &8513930467875111179
 MonoBehaviour:
@@ -323,12 +323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789524efcc5d91c4caaaf766c94cbe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carBody: {fileID: 7480595085521256230}
   speed: 2
-  objectDistance: -40
-  despawnDistance: -100
   explodeFire: {fileID: 6822475748786197539}
   _egzozSmoke: {fileID: 6290072251689103181}
+  isCrashed: 0
 --- !u!111 &2447204530900934952
 Animation:
   m_ObjectHideFlags: 0

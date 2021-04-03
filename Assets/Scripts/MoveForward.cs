@@ -53,8 +53,8 @@ public class MoveForward : MonoBehaviour
         if (other.collider.CompareTag("player"))
         {
             isCrashed = true;
-            _animator.SetBool("crashed", true);
-            explodeFire.Play();
+            // _animator.SetBool("crashed", true);
+            // explodeFire.Play();
         }
     }
 
@@ -65,7 +65,7 @@ public class MoveForward : MonoBehaviour
         if (isCrashed)
         {
             isCrashed = false;
-            _animator.SetBool("crashed", false);
+            // _animator.SetBool("crashed", false);
             Invoke("DelayedSetActive", 0.1f);
         }
     }

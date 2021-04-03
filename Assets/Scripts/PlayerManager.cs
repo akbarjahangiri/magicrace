@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     public ParticleSystem starParticle;
     public ParticleSystem _leftBackSmoke = null;
     public ParticleSystem _rightBackSmoke = null;
+    [SerializeField] private ParticleSystem explodeFire;
+
 
     public AudioClip crashSound;
     private HudController _hudController;
@@ -116,6 +118,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("car"))
         {
+            explodeFire.Play();
+            other.gameObject.SetActive(false);
             StopMove();
             _audioSource.PlayOneShot(crashSound, 1.0f);
             StopSmokeParticles();
